@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="jsonl-lens：本地 JSONL 查看器。粘贴或拖入 LLM / agent 日志，筛选展开，纯前端不上传。"
+    />
+    <title>jsonl-lens · 本地 JSONL 查看器</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>jsonl-lens</h1>
+        <p>
+          本地查看 / 筛选 JSONL（LLM 对话导出、agent·tool trace、结构化日志）。数据只在浏览器内处理，不上传。
+        </p>
+      </header>
+
+      <section class="panel">
+        <div class="toolbar">
+          <button type="button" class="primary" id="btnParse">解析</button>
+          <label class="file-btn">
+            选择文件
+            <input
+              id="fileInput"
+              type="file"
+              accept=".jsonl,.json,.ndjson,.txt,application/json,text/plain"
+            />
+          </label>
+          <button type="button" id="btnSample">加载示例</button>
+          <button type="button" id="btnClear">清空</button>
+          <button type="button" id="btnCopy" disabled>复制当前筛选为 JSONL</button>
+          <button type="button" id="btnDownload" disabled>下载 .jsonl</button>
+        </div>
+
+        <div id="dropzone">将 .jsonl / .json 文件拖到此处，或在下方粘贴文本</div>
+
+        <label class="field" for="source" style="display: block; margin-bottom: 0.35rem">
+          <span style="font-size: 0.8rem; color: var(--muted)">JSONL 原文</span>
+        </label>
+        <textarea
+          id="source"
+          placeholder='每行一个 JSON，例如：&#10;{"role":"user","content":"hello"}&#10;{"role":"assistant","content":"hi"}'
+          spellcheck="false"
+        ></textarea>
+        <p class="hint">
+          按行解析：合法 JSON 计入有效；坏行标红并显示原因，其余行不受影响。
+        </p>
+      </section>
+
+      <section class="panel">
+        <div class="filters">
+          <div class="field">
+            <label for="keyword">关键字筛选（原始行，不区分大小写）</label>
+            <input id="keyword" type="search" placeholder="例如 tool_call 或 thinking" />
+          </div>
+          <div class="field">
+            <label for="fieldFilter">字段过滤（可选，格式 key=value）</label>
+            <input id="fieldFilter" type="search" placeholder="例如 role=user 或 type=tool_call" />
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="stats" id="stats" aria-live="polite"></div>
+        <div class="list" id="list"></div>
+      </section>
+
+      <footer>
+        <a href="https://github.com/temptation2017/jsonl-lens">GitHub</a>
+        · MIT · 纯前端零依赖 · 跟随系统深浅色
+      </footer>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

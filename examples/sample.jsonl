@@ -1,0 +1,13 @@
+{"role":"system","content":"You are a helpful coding assistant. Keep answers concise."}
+{"role":"user","content":"List files in the current directory and summarize what this repo does."}
+{"type":"tool_call","name":"list_dir","arguments":{"path":"."}}
+{"type":"tool_result","name":"list_dir","ok":true,"output":"README.md\nsrc/\npackage.json"}
+{"role":"assistant","content":"This looks like a small Node project. README.md plus a src/ folder."}
+{"event":"thinking","level":"debug","message":"User asked for a summary; next step is reading README."}
+{"type":"tool_call","name":"read_file","arguments":{"path":"README.md"}}
+{"type":"tool_result","name":"read_file","ok":true,"output":"# Demo App\n\nA fictional sample repository for jsonl-lens."}
+{"role":"assistant","content":"Demo App — a fictional sample repository used to showcase JSONL viewing."}
+{"level":"info","message":"turn_complete","tokens":{"prompt":128,"completion":64}}
+{"role":"user","content":"Thanks. Can you also check package.json scripts?"}
+not-a-json-line this should fail parsing
+{"role":"assistant","content":"Sure — I'll open package.json next."}
